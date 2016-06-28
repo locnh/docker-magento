@@ -1,7 +1,4 @@
-############################################################
-# Dockerfile: CentOS 6.8 / PHP 7.0 / Nginx 1.10
-############################################################
-FROM centos:6.8
+FROM centos
 
 MAINTAINER Loc Nguyen <me@locnh.com>
 
@@ -15,7 +12,7 @@ RUN yum -y install epel-release
 RUN yum -y install nginx
 
 # Install PHP
-RUN yum -y install http://rpms.famillecollet.com/enterprise/remi-release-6.rpm
+RUN yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 RUN yum -y install --enablerepo=remi-php70 php-mysqlnd php-common php-gd php-pear php-xml php-mbstring php-mcrypt php-bcmath php-opcache php-cli php-soap php-pecl-oauth php-fpm php-intl php-pecl-redis
 
 # Install supervisor
