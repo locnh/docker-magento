@@ -25,7 +25,7 @@ RUN chown -R nginx:nginx /var/www/html
 
 # Add Nginx configuration
 COPY config/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY config/nginx/magento2.conf /etc/nginx/conf.d/default.conf
+COPY config/nginx/magento.conf /etc/nginx/conf.d/default.conf
 
 # Add PHP-FPM configuration
 COPY config/php-fpm/php.ini /etc/php.ini
