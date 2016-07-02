@@ -14,7 +14,7 @@ That's it !
 ## Please keep in mind: 
 If you don't specify tag, default tag is `latest`. In case you need the build for specified version of magento, use the version as tag. For example, if you need a container to run `Magento 2.1`:
 ```
-$ docker run --name magento -v /path/to/magento2:/var/www/html -p 80:80 locnh/dockerun-magento:2.1
+$ docker run --name magento -v /path/to/magento:/var/www/html -p 80:80 locnh/dockerun-magento:2.1
 ```
 
 ## Start 
