@@ -13,7 +13,7 @@ RUN yum -y install nginx
 
 # Install PHP
 RUN yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-RUN yum -y install --enablerepo=remi-php70 php-mysqlnd php-common php-gd php-pear php-xml php-mbstring php-mcrypt php-bcmath php-opcache php-cli php-soap php-pecl-oauth php-fpm php-intl php-pecl-redis
+RUN yum -y install --enablerepo=remi-php55 php-mysqlnd php-common php-gd php-pear php-xml php-mbstring php-mcrypt php-bcmath php-opcache php-cli php-soap php-pecl-oauth php-fpm php-intl php-pecl-redis
 
 # Install supervisor
 RUN yum -y install supervisor
