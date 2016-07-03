@@ -3,7 +3,7 @@ FROM centos
 MAINTAINER Loc Nguyen <me@locnh.com>
 
 # Add the ngix repository
-ADD config/nginx/nginx.repo /etc/yum.repos.d/nginx.repo
+COPY config/nginx/nginx.repo /etc/yum.repos.d/nginx.repo
 
 # Install EPEL
 RUN yum -y install epel-release
@@ -11,9 +11,37 @@ RUN yum -y install epel-release
 # Install nginx 
 RUN yum -y install nginx
 
-# Install PHP
+# Install Remi Repo
 RUN yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-RUN yum -y install --enablerepo=remi-php70 php-mysqlnd php-common php-gd php-pear php-xml php-mbstring php-mcrypt php-bcmath php-opcache php-cli php-soap php-pecl-oauth php-fpm php-intl php-pecl-redis
+
+# Enable Remi PHP 7.0
+RUN yum-config-manager --enable remi-php70
+
+# Install PHP and Extensions 
+RUN yum -y install  php \
+                    php-bcmath \
+                    php-cli \
+                    php-common \
+                    php-fpm \
+                    php-gd \
+                    php-intl \
+                    php-mbstring \
+                    php-mcrypt \
+                    php-mysqlnd \
+                    php-pdo \
+                    php-pear \
+                    php-pecl-igbinary \
+                    php-pecl-imagick \
+                    php-pecl-oauth \
+                    php-pecl-redis \
+                    php-pecl-zendopcache \
+                    php-process \
+                    php-soap \
+                    php-xml
+
+# Install composer
+ADD https://getcomposer.org/composer.phar /usr/local/bin/composer
+RUN chmod 755 /usr/local/bin/composer
 
 # Install supervisor
 RUN yum -y install supervisor
