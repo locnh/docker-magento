@@ -37,7 +37,8 @@ RUN yum -y install  php \
                     php-pecl-zendopcache \
                     php-process \
                     php-soap \
-                    php-xml
+                    php-xml \
+                    php-zip
 
 # Install composer
 ADD https://getcomposer.org/composer.phar /usr/local/bin/composer
