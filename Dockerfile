@@ -5,17 +5,14 @@ MAINTAINER Loc Nguyen <me@locnh.com>
 # Add the ngix repository
 COPY config/nginx/nginx.repo /etc/yum.repos.d/nginx.repo
 
-# Install EPEL
-RUN yum -y install epel-release
+# Install EPEL and Remi
+RUN yum -y install epel-release && \
+    yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+# Enable Remi PHP 7.0
+RUN yum-config-manager --enable remi-php70
 
 # Install nginx 
 RUN yum -y install nginx
-
-# Install Remi Repo
-RUN yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
-
-# Enable Remi PHP 7.0
-RUN yum-config-manager --enable remi-php70
 
 # Install PHP and Extensions 
 RUN yum -y install  php \
@@ -50,7 +47,7 @@ RUN yum -y clean all
 
 # Correct permision
 RUN chown -R nginx:nginx /var/lib/php
-RUN chown -R nginx:nginx /var/www/html
+RUN mv /var/lib/php /var/lib/php_fix_aufs_bug && mv /var/lib/php_fix_aufs_bug /var/lib/php
 
 # Add Nginx configuration
 COPY config/nginx/nginx.conf /etc/nginx/nginx.conf
