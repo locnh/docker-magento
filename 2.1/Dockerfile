@@ -31,6 +31,7 @@ RUN yum -y install  php \
                     php-pecl-imagick \
                     php-pecl-oauth \
                     php-pecl-redis \
+                    php-pecl-xdebug \
                     php-pecl-zendopcache \
                     php-process \
                     php-soap \
@@ -47,7 +48,6 @@ RUN yum -y clean all
 
 # Correct permision
 RUN chown -R nginx:nginx /var/lib/php
-RUN mv /var/lib/php /var/lib/php_fix_aufs_bug && mv /var/lib/php_fix_aufs_bug /var/lib/php
 
 # Add Nginx configuration
 COPY config/nginx/nginx.conf /etc/nginx/nginx.conf
@@ -55,13 +55,20 @@ COPY config/nginx/magento.conf /etc/nginx/conf.d/default.conf
 
 # Add PHP-FPM configuration
 COPY config/php-fpm/php.ini /etc/php.ini
+COPY config/php-fpm/15-xdebug.ini /etc/php.d/15-xdebug.ini
 COPY config/php-fpm/www.conf /etc/php-fpm.d/www.conf
 COPY config/php-fpm/php-fpm.conf /etc/php-fpm.conf
 
 # Add Supervisor configuration
 COPY config/supervisor/supervisord.conf /etc/
 
+# Add Kick-start script
+ADD kick-start.sh /usr/local/bin/
+ENTRYPOINT ["kick-start.sh"]
+
 EXPOSE 80
 
+VOLUME ["/var/www/html", "/var/log/nginx", "/var/log/php-fpm"]
+
 # Exec supervisord
-CMD ["/usr/bin/supervisord", "-n","-c","/etc/supervisord.conf"]
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
