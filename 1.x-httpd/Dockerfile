@@ -40,7 +40,7 @@ COPY config/httpd.conf /etc/httpd/conf/httpd.conf
 
 # Add PHP configuration
 COPY config/php.ini /etc/php.ini
-COPY config/15-xdebug.ini /etc/php.d/15-xdebug.ini
+COPY config/xdebug.ini /etc/php.d/xdebug.ini
 
 # Add Kick-start script
 COPY kick-start.sh /kick-start.sh
