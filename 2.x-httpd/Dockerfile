@@ -43,7 +43,7 @@ COPY config/php.ini /etc/php.ini
 COPY config/15-xdebug.ini /etc/php.d/15-xdebug.ini
 
 # Add Kick-start script
-COPY kick-start.sh /kick-start.shkick-start.sh
+COPY kick-start.sh /kick-start.sh
 RUN chmod -v +x /kick-start.sh
 ENTRYPOINT ["/kick-start.sh"]
 
