@@ -6,8 +6,8 @@ MAINTAINER Loc Nguyen <me@locnh.com>
 COPY config/nginx/nginx.repo /etc/yum.repos.d/nginx.repo
 
 # Install EPEL and Remi
-RUN yum -y install epel-release && \
-    yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+RUN yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+
 # Enable Remi PHP 7.0
 RUN yum-config-manager --enable remi-php70
 
@@ -71,4 +71,4 @@ EXPOSE 80
 VOLUME ["/var/www/html", "/var/log/nginx", "/var/log/php-fpm"]
 
 # Exec supervisord
-CMD ["kick-start.sh"]
+CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]

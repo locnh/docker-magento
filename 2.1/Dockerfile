@@ -6,8 +6,8 @@ MAINTAINER Loc Nguyen <me@locnh.com>
 COPY config/nginx/nginx.repo /etc/yum.repos.d/nginx.repo
 
 # Install EPEL and Remi
-RUN yum -y install epel-release && \
-    yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+RUN yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
+
 # Enable Remi PHP 7.0
 RUN yum-config-manager --enable remi-php70
 

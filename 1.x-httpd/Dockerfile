@@ -1,18 +1,12 @@
-FROM centos
+FROM centos/httpd
 
 MAINTAINER Loc Nguyen <me@locnh.com>
-
-# Add the ngix repository
-COPY config/nginx/nginx.repo /etc/yum.repos.d/nginx.repo
 
 # Install EPEL and Remi
 RUN yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
 # Enable Remi PHP 5.5
 RUN yum-config-manager --enable remi-php55
-
-# Install nginx 
-RUN yum -y install nginx
 
 # Install PHP and Extensions 
 RUN yum -y install  php \
@@ -42,25 +36,15 @@ RUN yum -y install  php \
 ADD https://getcomposer.org/composer.phar /usr/local/bin/composer
 RUN chmod 755 /usr/local/bin/composer
 
-# Install supervisor
-RUN yum -y install supervisor
+# Purge cache
 RUN yum -y clean all
 
-# Correct permision
-RUN chown -R nginx:nginx /var/lib/php
+# Add Apache configuration
+COPY config/httpd.conf /etc/httpd/conf/
 
-# Add Nginx configuration
-COPY config/nginx/nginx.conf /etc/nginx/nginx.conf
-COPY config/nginx/magento.conf /etc/nginx/conf.d/default.conf
-
-# Add PHP-FPM configuration
-COPY config/php-fpm/php.ini /etc/php.ini
-COPY config/php-fpm/xdebug.ini /etc/php.d/xdebug.ini
-COPY config/php-fpm/www.conf /etc/php-fpm.d/www.conf
-COPY config/php-fpm/php-fpm.conf /etc/php-fpm.conf
-
-# Add Supervisor configuration
-COPY config/supervisor/supervisord.conf /etc/supervisord.conf
+# Add PHP configuration
+COPY config/php.ini /etc/php.ini
+COPY config/xdebug.ini /etc/php.d/xdebug.ini
 
 # Add Kick-start script
 ADD kick-start.sh /usr/local/bin/
@@ -68,7 +52,7 @@ ENTRYPOINT ["kick-start.sh"]
 
 EXPOSE 80
 
-VOLUME ["/var/www/html", "/var/log/nginx", "/var/log/php-fpm"]
+VOLUME ["/var/www/html", "/var/log/httpd"]
 
-# Exec supervisord
-CMD ["/usr/bin/supervisord", "-n", "-c", "/etc/supervisord.conf"]
+# Exec Apache Web Server
+CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
