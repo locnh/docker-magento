@@ -2,10 +2,13 @@
 Docker container built with CentOS 7, NGINX and PHP with compatible version and modules for Magento
 
 ### Update
-- Added build for Magento `2.1`, `latest`
-- Added build for Magento `2.0`
-- Added build for Magento `1.x`
+- Added `NginX/PHP-FPM` build for Magento `2.1`, `latest`
+- Added `NginX/PHP-FPM` build for Magento `2.0`
+- Added `NginX/PHP-FPM` build for Magento `1.x`
 
+- Added `Apache/Mod_PHP` build for Magento `2.x-httpd`
+- Added `Apache/Mod_PHP` build for Magento `1.x-httpd`
+- 
 ### How to start
 1. Pull the latest image
   ```
