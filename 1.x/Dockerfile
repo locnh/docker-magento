@@ -64,7 +64,7 @@ RUN chmod -v +x /kick-start.sh
 ENTRYPOINT ["/kick-start.sh"]
 
 # Install composer
-ADD https://getcomposer.org/usr/local/bin/composer.phar /usr/local/bin/composer
+ADD https://getcomposer.org/composer.phar /usr/local/bin/composer
 RUN chmod -v +x /usr/local/bin/composer
 
 EXPOSE 80
