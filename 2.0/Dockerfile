@@ -39,8 +39,8 @@ RUN yum -y install  php \
                     php-zip
 
 # Install composer
-ADD https://getcomposer.org/composer.phar /usr/local/bin/composer
-RUN chmod 755 /usr/local/bin/composer
+ADD https://getcomposer.org/composer.phar /composer
+RUN chmod 755 /composer
 
 # Install supervisor
 RUN yum -y install supervisor
@@ -63,7 +63,8 @@ COPY config/php-fpm/php-fpm.conf /etc/php-fpm.conf
 COPY config/supervisor/supervisord.conf /etc/
 
 # Add Kick-start script
-ADD kick-start.sh /usr/local/bin/
+COPY kick-start.sh /kick-start.sh
+RUN chmod -v +x /kick-start.sh
 ENTRYPOINT ["kick-start.sh"]
 
 EXPOSE 80

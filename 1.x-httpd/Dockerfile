@@ -32,27 +32,32 @@ RUN yum -y install  php \
                     php-xml \
                     php-zip
 
-# Install composer
-ADD https://getcomposer.org/composer.phar /usr/local/bin/composer
-RUN chmod 755 /usr/local/bin/composer
-
 # Purge cache
 RUN yum -y clean all
 
 # Add Apache configuration
-COPY config/httpd.conf /etc/httpd/conf/
+COPY config/httpd.conf /etc/httpd/conf/httpd.conf
 
 # Add PHP configuration
 COPY config/php.ini /etc/php.ini
-COPY config/xdebug.ini /etc/php.d/xdebug.ini
+COPY config/15-xdebug.ini /etc/php.d/15-xdebug.ini
 
 # Add Kick-start script
-ADD kick-start.sh /usr/local/bin/
-ENTRYPOINT ["kick-start.sh"]
+COPY kick-start.sh /kick-start.shkick-start.sh
+RUN chmod -v +x /kick-start.sh
+ENTRYPOINT ["/kick-start.sh"]
+
+# Add Apache init script
+ADD run-httpd.sh /run-httpd.sh
+RUN chmod -v +x /run-httpd.sh
+
+# Install composer
+ADD https://getcomposer.org/composer.phar /composer
+RUN chmod -v +x /composer
 
 EXPOSE 80
 
 VOLUME ["/var/www/html", "/var/log/httpd"]
 
 # Exec Apache Web Server
-CMD ["/usr/sbin/apachectl", "-D", "FOREGROUND"]
+CMD ["/run-httpd.sh"]
