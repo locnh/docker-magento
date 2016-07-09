@@ -1,14 +1,16 @@
+## Supported tags and respective `Dockerfile` links
+* [`2`, `latest` (*2.x/Dockerfile*)](https://github.com/locnh/docker-magento/blob/master/2.x/Dockerfile)
+* [`1` (*1.x/Dockerfile*)](https://github.com/locnh/docker-magento/blob/master/1.x/Dockerfile)
+
 ## What is this ?
 Docker container built with CentOS 7, NGINX and PHP with compatible version and modules for Magento
 
-## Update
-- Added build for Magento `2` `2.x` `latest`
-- Added build for Magento `1` `1.x`
+These are the Docker Hub autobuild images located [here](https://hub.docker.com/r/locnh/docker-magento/).
+
+![Magento Logo](https://upload.wikimedia.org/wikipedia/en/c/c2/Magento_logo.png)
 
 ## How to start
-
 ### The Simplest way, NginX - PHP-FPM by default
-
 1. Pull the latest image
 
   ```
