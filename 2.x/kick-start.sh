@@ -1,5 +1,7 @@
 #!/bin/bash
 
+exec crond
+
 if [ "$XDEBUG_RHOST" ]; then
     sed -i "s/^\;zend_extension/zend_extension/g" /etc/php.d/15-xdebug.ini
     sed -i "s/^\;xdebug/xdebug/g" /etc/php.d/15-xdebug.ini
