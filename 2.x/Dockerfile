@@ -12,14 +12,10 @@ RUN yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 RUN yum-config-manager --enable remi-php70
 
 # Install Crond, Supervisor, NginX, Apache, PHP and Extensions
-RUN yum -y install  nginx \
-                    httpd \
-                    cronie \
-                    supervisor \
+RUN yum -y install  nginx httpd cronie supervisor \
                     php \
                     php-bcmath \
                     php-cli \
-                    php-common \
                     php-fpm \
                     php-gd \
                     php-intl \
@@ -27,7 +23,6 @@ RUN yum -y install  nginx \
                     php-mcrypt \
                     php-mysqlnd \
                     php-pdo \
-                    php-pear \
                     php-pecl-igbinary \
                     php-pecl-imagick \
                     php-pecl-oauth \
@@ -37,9 +32,7 @@ RUN yum -y install  nginx \
                     php-process \
                     php-soap \
                     php-xml \
-                    php-zip
-
-RUN yum -y clean all
+                    php-zip && yum clean all
 
 # Add Web servers configurations
 COPY config/httpd/httpd.conf /etc/httpd/conf/httpd.conf
@@ -49,10 +42,11 @@ COPY config/nginx/magento.conf /etc/nginx/conf.d/default.conf
 # Add PHP-FPM configuration
 COPY config/php/15-xdebug.ini /etc/php.d/15-xdebug.ini
 COPY config/php/www.conf /etc/php-fpm.d/www.conf
-COPY config/php/php-fpm.conf /etc/php-fpm.conf
 
 # Add Supervisor configuration
-COPY config/supervisor/supervisord.conf /etc/supervisord.conf
+COPY config/supervisor/crond.ini /etc/supervisord.d/crond.ini
+COPY config/supervisor/httpd.ini /etc/supervisord.d/httpd.ini.sample
+COPY config/supervisor/nginx.ini /etc/supervisord.d/nginx.ini.sample
 
 # Add Cron jobs
 COPY config/cron/crontab /etc/crontab
