@@ -49,19 +49,18 @@ COPY config/supervisor/httpd.ini /etc/supervisord.d/httpd.ini.sample
 COPY config/supervisor/nginx.ini /etc/supervisord.d/nginx.ini.sample
 
 # Add cronpy for Magento
-COPY config/cron/cronpy /usr/local/bin/cronpy
+COPY bin/cronpy /usr/local/bin/cronpy
 RUN chmod -v +x /usr/local/bin/cronpy
 
 # Install Python schedule library for cronpy to run
 RUN curl https://bootstrap.pypa.io/get-pip.py | python && pip install schedule
 
 # Add Kick-start script
-COPY kick-start.sh /usr/local/bin/kick-start.sh
-RUN chmod -v +x /usr/local/bin/kick-start.sh
+COPY bin/kick-start /usr/local/bin/kick-start
+RUN chmod -v +x /usr/local/bin/kick-start
 
 EXPOSE 80
 
 VOLUME ["/var/www/html", "/var/log/httpd", "/var/log/nginx", "/var/log/php-fpm"]
 
-# Exec supervisord
-CMD ["kick-start.sh"]
+CMD ["kick-start"]

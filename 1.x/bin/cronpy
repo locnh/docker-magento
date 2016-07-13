@@ -1,0 +1,15 @@
+#!/usr/bin/env python
+
+import schedule
+import time
+from os import system
+
+def magento():
+    print("Magento cron is running ..")
+    system("""/bin/sh /var/www/html/cron.sh""")
+
+schedule.every(5).minutes.do(magento)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Init setup
+sed -i 's/^memory_limit.*$/memory_limit = 768M/g' /etc/php.ini
+sed -i 's/^max_execution_time.*$/max_execution_time = 18000/g' /etc/php.ini
+
 # Xdebug Switch
 if [ "$XDEBUG_RHOST" ]
 then
