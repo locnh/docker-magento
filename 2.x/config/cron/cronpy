@@ -1,0 +1,25 @@
+#!/usr/bin/env python
+
+import schedule
+import time
+from os import system
+
+def magento():
+    print("Magento cron is running ..")
+    system("""/usr/bin/php /var/www/html/bin/magento cron:run | grep -v "Ran jobs by schedule" >> /var/www/html/var/log/magento.cron.log""")
+
+def update():
+    print("Magento update cron is running ..")
+    system("""/usr/bin/php /var/www/html/update/cron.php >> /var/www/html/var/log/update.cron.log""")
+
+def setup():
+    print("Magento setup cron is running ..")
+    system("""/usr/bin/php /var/www/html/bin/magento setup:cron:run >> /var/www/html/var/log/setup.cron.log""")
+
+schedule.every().minutes.do(magento)
+schedule.every().minutes.do(update)
+schedule.every().minutes.do(setup)
+
+while True:
+    schedule.run_pending()
+    time.sleep(1)

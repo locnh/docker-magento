@@ -27,7 +27,7 @@ That's it !
 
 ## More Options
 
-#### Using Apache (httpd) instead of NGinX
+#### Using Apache (httpd) instead of NginX
 - Just add the environment variable with `-e WEB_SRV=apache` or `-e WEB_SRV=httpd`
 - Example:
 
@@ -45,7 +45,7 @@ That's it !
 
 #### Mountable Volumes
 Beside Webroot `/var/www/html`, you can use option `-v` to mount more volumes to the container such as services logs:
-- NGinX logs:   `/var/log/nginx` 
+- NginX logs:   `/var/log/nginx` 
 - Apache logs:  `/var/log/httpd`
 - PHP-FPM logs: `/var/www/php-fpm`
 

@@ -11,8 +11,8 @@ RUN yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 # Enable Remi PHP 7.0
 RUN yum-config-manager --enable remi-php70
 
-# Install Crond, Supervisor, NginX, Apache, PHP and Extensions
-RUN yum -y install  nginx httpd cronie supervisor \
+# Install Supervisor, NginX, Apache, PHP and Extensions
+RUN yum -y install  nginx httpd supervisor \
                     php \
                     php-bcmath \
                     php-cli \
@@ -44,12 +44,16 @@ COPY config/php/15-xdebug.ini /etc/php.d/15-xdebug.ini
 COPY config/php/www.conf /etc/php-fpm.d/www.conf
 
 # Add Supervisor configuration
-COPY config/supervisor/crond.ini /etc/supervisord.d/crond.ini
+COPY config/supervisor/cronpy.ini /etc/supervisord.d/cronpy.ini
 COPY config/supervisor/httpd.ini /etc/supervisord.d/httpd.ini.sample
 COPY config/supervisor/nginx.ini /etc/supervisord.d/nginx.ini.sample
 
-# Add Cron jobs
-COPY config/cron/crontab /etc/crontab
+# Add cronpy for Magento
+COPY config/cron/cronpy /usr/local/bin/cronpy
+RUN chmod -v +x /usr/local/bin/cronpy
+
+# Install Python schedule library for cronpy to run
+RUN curl https://bootstrap.pypa.io/get-pip.py | python && pip install schedule
 
 # Add Kick-start script
 COPY kick-start.sh /usr/local/bin/kick-start.sh
