@@ -4,25 +4,27 @@
 sed -i 's/^memory_limit.*$/memory_limit = 768M/g' /etc/php.ini
 sed -i 's/^max_execution_time.*$/max_execution_time = 18000/g' /etc/php.ini
 
-# Xdebug Switch
-if [ "$XDEBUG_RHOST" ]
-then
-    sed -i "s/^\;zend_extension/zend_extension/g" /etc/php.d/xdebug.ini
-    sed -i "s/^\;xdebug/xdebug/g" /etc/php.d/xdebug.ini
-    sed -i "s/^xdebug.remote_host.*/xdebug.remote_host=$XDEBUG_RHOST/g" /etc/php.d/xdebug.ini
-else
-    sed -i "s/^zend_extension/\;zend_extension/g" /etc/php.d/xdebug.ini
-    sed -i "s/^xdebug/\;xdebug/g" /etc/php.d/xdebug.ini
-fi
-
-# Web Server Switch
+# Check to re-init environment if needed
+# It means you can reset this docker environment to default by removing server.ini
 if [ ! -h /etc/supervisord.d/server.ini ]
 then
+    # Web Server Switch
     if [ "$WEB_SRV" == "httpd" -o "$WEB_SRV" == "apache" ]
     then
         ln -s /etc/supervisord.d/httpd.ini.sample /etc/supervisord.d/server.ini
     else
         ln -s /etc/supervisord.d/nginx.ini.sample /etc/supervisord.d/server.ini
+    fi
+
+    # Xdebug Switch
+    if [ "$XDEBUG_RHOST" ]
+    then
+        sed -i "s/^\;zend_extension/zend_extension/g" /etc/php.d/xdebug.ini
+        sed -i "s/^\;xdebug/xdebug/g" /etc/php.d/xdebug.ini
+        sed -i "s/^xdebug.remote_host.*/xdebug.remote_host=$XDEBUG_RHOST/g" /etc/php.d/xdebug.ini
+    else
+        sed -i "s/^zend_extension/\;zend_extension/g" /etc/php.d/xdebug.ini
+        sed -i "s/^xdebug/\;xdebug/g" /etc/php.d/xdebug.ini
     fi
 fi
 
