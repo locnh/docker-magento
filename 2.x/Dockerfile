@@ -59,6 +59,10 @@ RUN curl https://bootstrap.pypa.io/get-pip.py | python && pip install schedule
 COPY bin/kick-start /usr/local/bin/kick-start
 RUN chmod -v +x /usr/local/bin/kick-start
 
+# Add composer
+ADD https://getcomposer.org/composer.phar /usr/local/bin/composer
+RUN chmod -v +x /usr/local/bin/composer
+
 EXPOSE 80
 
 VOLUME ["/var/www/html", "/var/log/httpd", "/var/log/nginx", "/var/log/php-fpm"]

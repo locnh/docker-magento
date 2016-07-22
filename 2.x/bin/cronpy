@@ -16,9 +16,9 @@ def setup():
     print("Magento setup cron is running ..")
     system("""/usr/bin/php /var/www/html/bin/magento setup:cron:run >> /var/www/html/var/log/setup.cron.log""")
 
-schedule.every().minutes.do(magento)
-schedule.every().minutes.do(update)
-schedule.every().minutes.do(setup)
+schedule.every(30).minutes.do(magento)
+schedule.every(30).minutes.do(update)
+schedule.every(30).minutes.do(setup)
 
 while True:
     schedule.run_pending()
