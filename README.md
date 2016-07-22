@@ -1,9 +1,16 @@
 ## Supported tags and respective `Dockerfile` links
+### Production build
 * [`2`, `latest` (*2.x/Dockerfile*)](https://github.com/locnh/docker-magento/blob/master/2.x/Dockerfile)
 * [`1` (*1.x/Dockerfile*)](https://github.com/locnh/docker-magento/blob/master/1.x/Dockerfile)
 
+### Sandbox build
+* [`2-dev` (*2.x/Dockerfile*)](https://github.com/locnh/docker-magento/blob/sandbox/2.x/Dockerfile)
+* [`1-dev` (*1.x/Dockerfile*)](https://github.com/locnh/docker-magento/blob/sandbox/1.x/Dockerfile)
+
 ## What is this ?
 Docker container built with CentOS 7, NGINX and PHP with compatible version and modules for Magento
+
+Sandbox build for Magento 2.x (`2-dev`) comes with composer, nodejs, grunt.
 
 These are the Docker Hub autobuild images located [here](https://hub.docker.com/r/locnh/docker-magento/).
 
@@ -35,7 +42,7 @@ That's it !
   $ docker run --name magento -e WEB_SRV=httpd -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento
   ```
 
-#### Enable Xdebug remote
+#### Enable Xdebug remote (Sandbox build only)
 - Just add the environment variable with `-e XDEBUG_RHOST=<REMOTE_HOST>`.
 - Example your IDE is running at IP `10.0.75.1`:
 
