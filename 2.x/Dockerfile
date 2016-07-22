@@ -8,11 +8,14 @@ COPY config/nginx/nginx.repo /etc/yum.repos.d/nginx.repo
 # Install EPEL and Remi
 RUN yum -y install http://rpms.famillecollet.com/enterprise/remi-release-7.rpm
 
+# Install NodeJS repo
+RUN curl --silent --location https://rpm.nodesource.com/setup_4.x | bash -
+
 # Enable Remi PHP 7.0
 RUN yum-config-manager --enable remi-php70
 
 # Install Supervisor, NginX, Apache, PHP and Extensions
-RUN yum -y install  nginx httpd supervisor \
+RUN yum -y install  nginx httpd supervisor nodejs \
                     php \
                     php-bcmath \
                     php-cli \
@@ -62,6 +65,9 @@ RUN chmod -v +x /usr/local/bin/kick-start
 # Add composer
 ADD https://getcomposer.org/composer.phar /usr/local/bin/composer
 RUN chmod -v +x /usr/local/bin/composer
+
+# Install grunt
+RUN npm install -g grunt-cli
 
 EXPOSE 80
 
