@@ -27,7 +27,6 @@ RUN yum -y install  nginx httpd supervisor which \
                     php-pecl-imagick \
                     php-pecl-oauth \
                     php-pecl-redis \
-                    php-pecl-xdebug \
                     php-pecl-zendopcache \
                     php-process \
                     php-soap \
@@ -40,7 +39,6 @@ COPY config/nginx/nginx.conf /etc/nginx/nginx.conf
 COPY config/nginx/magento.conf /etc/nginx/conf.d/default.conf
 
 # Add PHP-FPM configuration
-COPY config/php/xdebug.ini /etc/php.d/xdebug.ini
 COPY config/php/www.conf /etc/php-fpm.d/www.conf
 
 # Add Supervisor configuration
