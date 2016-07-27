@@ -14,7 +14,7 @@ Sandbox build for Magento 2.x (`2-dev`) comes with composer, nodejs, grunt.
 
 These are the Docker Hub autobuild images located [here](https://hub.docker.com/r/locnh/docker-magento/).
 
-![Magento Logo](https://upload.wikimedia.org/wikipedia/en/c/c2/Magento_logo.png)
+![Magento Logo](http://www.elevateweb.co.uk/wp-content/themes/porto/assets/img/headers/mage-logo.png)
 
 ## How to start
 ### The Simplest way, NginX - PHP-FPM by default
