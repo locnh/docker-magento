@@ -42,6 +42,16 @@ That's it !
   $ docker run --name magento -e WEB_SRV=httpd -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento
   ```
 
+
+#### Set the `uid` (and/or `gid`) of `apache` inside container
+- To change the apache `uid`, use `-e UID=<your uid>` (you can use this).
+- To change the apache `gid`, use `-e GID=<your gid>` (use at your own risk).
+- Example:
+  ```
+  $ docker run --name magento -e uid=501 -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento
+  ```
+
+
 #### Enable Xdebug remote (Sandbox build only)
 - Just add the environment variable with `-e XDEBUG_RHOST=<REMOTE_HOST>`.
 - Example your IDE is running at IP `10.0.75.1`:

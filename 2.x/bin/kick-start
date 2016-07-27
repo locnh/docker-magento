@@ -15,6 +15,16 @@ then
     else
         ln -s /etc/supervisord.d/nginx.ini.sample /etc/supervisord.d/server.ini
     fi
+
+    # Modify apache uid:gid
+    if [ "$UID" ]
+    then
+        usermod -u $UID apache
+    fi
+    if [ "$GID" ]
+    then
+        groupmod -g $GID apache
+    fi
 fi
 
 exec /usr/bin/supervisord -n -c /etc/supervisord.conf
