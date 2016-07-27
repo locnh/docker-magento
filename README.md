@@ -47,6 +47,7 @@ That's it !
 - To change the apache `uid`, use `-e UID=<your uid>` (you can use this).
 - To change the apache `gid`, use `-e GID=<your gid>` (use at your own risk).
 - Example:
+
   ```
   $ docker run --name magento -e uid=501 -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento
   ```
