@@ -39,7 +39,7 @@ That's it !
 - Example:
 
   ```
-  $ docker run --name magento -e WEB_SRV=httpd -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento
+  $ docker run --name magento -e WEB_SRV=httpd -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento:2-dev
   ```
 
 
@@ -49,7 +49,7 @@ That's it !
 - Example:
 
   ```
-  $ docker run --name magento -e uid=501 -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento
+  $ docker run --name magento -e uid=501 -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento:2-dev
   ```
 
 
@@ -58,8 +58,8 @@ That's it !
 - Example your IDE is running at IP `10.0.75.1`:
 
   ```
-  $ docker run --name magento -e XDEBUG_RHOST=10.0.75.1 -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento
-  ```
+  $ docker run --name magento -e XDEBUG_RHOST=172.17.0.1 -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento:2-dev
+:2-dev  ```
 
 #### Mountable Volumes
 Beside Webroot `/var/www/html`, you can use option `-v` to mount more volumes to the container such as services logs:
@@ -68,17 +68,17 @@ Beside Webroot `/var/www/html`, you can use option `-v` to mount more volumes to
 - PHP-FPM logs: `/var/www/php-fpm`
 
 #### Please keep in mind
-If you don't specify tag, default tag is `latest`. In case you need the build for specified version of magento, use the version as tag. For example, if you need a container to run:
+If you don't specify tag, default tag is `latest` and it's `production` build. In case you need the build for specified version of magento, use the version as tag. For example, if you need a container to run:
 - Magento `2.x`:
 
   ```
-  $ docker run --name magento -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento:2
+  $ docker run --name magento -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento:2-dev
   ```
 
 - Magento `1.x`:
 
   ```
-  $ docker run --name magento -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento:1
+  $ docker run --name magento -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento:1-dev
   ```
 
 
