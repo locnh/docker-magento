@@ -49,7 +49,7 @@ That's it !
 - Example:
 
   ```
-  $ docker run --name magento -e uid=501 -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento
+  $ docker run --name magento -e UID=501 -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento
   ```
 
 
@@ -58,7 +58,7 @@ That's it !
 - Example your IDE is running at IP `10.0.75.1`:
 
   ```
-  $ docker run --name magento -e XDEBUG_RHOST=10.0.75.1 -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento
+  $ docker run --name magento -e XDEBUG_RHOST=172.17.0.1 -v /path/to/magento:/var/www/html -p 80:80 -d locnh/docker-magento
   ```
 
 #### Mountable Volumes
